@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>LOSE.png</file>
+        <file>WIN.png</file>
+    </qresource>
+</RCC>
