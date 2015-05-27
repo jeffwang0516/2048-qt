@@ -20,7 +20,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     void keyPressEvent(QKeyEvent *event);
-    void moveUp(int i, int j);   
+    void moveUp(int i, int j);
     void moveDown(int i, int j);
     void moveRight(int i, int j);
     void moveLeft(int i, int j);
@@ -42,6 +42,7 @@ protected:
 private:
     int grid[4][4];
     int lastgrid[4][4];
+    int regretgrid[4][4];
     bool ifCombined[4][4];
     bool ifMove;
     Points *pointCnt;

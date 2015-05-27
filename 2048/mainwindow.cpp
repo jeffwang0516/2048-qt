@@ -14,6 +14,8 @@ MainWindow::MainWindow(QWidget *parent) :
     for(int i=0;i<4;i++){
         for(int j=0;j<4;j++){
             grid[i][j]=0;
+            lastgrid[i][j]=0;
+            regretgrid[i][j]=0;
         }
     }
     //radomly choose two grids to start
@@ -75,6 +77,7 @@ void MainWindow::on_pushButton_released()
         for(int j=0;j<4;j++){
             grid[i][j]=0;
             lastgrid[i][j]=0;
+            regretgrid[i][j]=0;
         }
     }
 
@@ -322,14 +325,20 @@ void MainWindow::refreshBoard()
     ui->label_15->setText(grid[3][2]==0?" ":QString::number(grid[3][2]));
     ui->label_16->setText(grid[3][3]==0?" ":QString::number(grid[3][3]));
     ui->label_17->setText("SCORE:"+QString::number(pointCnt->get()));//points
-}
 
+}
+/*
+ rgb(170, 255, 0)rgb(85, 170, 255)rgb(0, 170, 255)rgb(255, 255, 127)
+origin:background-color: rgb(41, 255, 209);*/
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
-    for(int i=0;i<4;i++)
-        for(int j=0;j<4;j++)
-            ifCombined[i][j]=false;
+
   if(event->key() == Qt::Key_Up||event->key() == Qt::Key_Down||event->key() == Qt::Key_Right||event->key() == Qt::Key_Left){
+      for(int i=0;i<4;i++)
+          for(int j=0;j<4;j++){
+              ifCombined[i][j]=false;
+              regretgrid[i][j]=lastgrid[i][j];
+          }
     ifMove=false;
     if(event->key() == Qt::Key_Up){
         for(int i = 0; i<4; ++i)
@@ -375,11 +384,20 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         grid[2][2]=2048;
     }
     */
+
     for(int i = 0; i<4; ++i)
         for(int j = 0; j<4; ++j)
             if(grid[i][j]!=lastgrid[i][j])
                 ifMove=true;
+    if(!ifMove){
+    for(int i=0;i<4;i++)
+        for(int j=0;j<4;j++){
+
+            lastgrid[i][j]=regretgrid[i][j];
+        }
+    }
     if(ifMove){
+
         pointCnt->changePoint(5);//plus five points
         //prepoints=points;
         int a,b;
@@ -397,7 +415,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
             if(grid[i][j]==2048){
                 hideLabel();
                 ui->pushButton_2->hide();
-                setStyleSheet("background-image: url(:/WIN.png);");              
+                setStyleSheet("background-image: url(:/WIN.png);");
                 for(int i=0;i<4;i++){
                     for(int j=0;j<4;j++){
                         grid[i][j]=0;
