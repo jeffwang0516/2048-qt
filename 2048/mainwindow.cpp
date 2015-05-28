@@ -24,6 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
     grid[rand()%4][rand()%4]=2;
     ifMove=false;
     ui->setupUi(this);
+    //Load pictures
     pix[0].load(":/mats/0.png");
     pix[2].load(":/mats/2.png");
     pix[4].load(":/mats/4.png");
@@ -38,6 +39,8 @@ MainWindow::MainWindow(QWidget *parent) :
     pix[2048].load(":/mats/2048.png");
 
     refreshBoard();
+
+    //WIN&LOSE label
     ui->label_19->hide();
     ui->label_20->hide();
 }
@@ -89,6 +92,7 @@ void MainWindow::on_pushButton_2_released()
 }
 void MainWindow::on_pushButton_3_clicked()
 {
+    //LOAD Pics for special version
     pix[0].load(":/mats/0.png");
     pix[2].load(":/mats/sun.png");
     pix[4].load(":/mats/01.jpg");
@@ -408,8 +412,6 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         for(int i = 3; i>=0; --i)
             for(int j = 0; j<4; ++j)
                   moveDown(i,j);
-
-
     }
     if(event->key() == Qt::Key_Right){
         for(int i = 0; i<4; ++i)
@@ -430,7 +432,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
                   moveLeft(i,j);
 
     }
-    //TESTING when 2048 occurs
+    //TESTING  2048 occur
 /*
     if(event->key() == Qt::Key_D){
         for(int i = 0; i<4; ++i)
@@ -471,15 +473,16 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     for(int i=0;i<4;i++){
         for(int j=0;j<4;j++){
             if(grid[i][j]==2048){
+                pointCnt->changePoint(1000);//plus 1000pts for winning
+                ui->label_17->setText("SCORE:"+QString::number(pointCnt->get()));//points
                 ifWin=true;
             }
         }
     }
     if(ifWin){
-
         ui->pushButton_2->hide();
         ui->label_18->hide();
-        ui->label_19->show();
+        ui->label_19->show();//Show the WIN LABEL
       // hideLabel();
        //ui->pushButton_2->hide();
        //setStyleSheet("background-image: url(:/WIN.png);");
@@ -488,7 +491,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     if(possible()==2){
         ui->pushButton_2->hide();
         ui->label_18->hide();
-        ui->label_20->show();
+        ui->label_20->show();//Show the LOSE LABEL
         //hideLabel();
         //ui->pushButton_2->hide();
         //setStyleSheet("background-image: url(:/LOSE.png);");
