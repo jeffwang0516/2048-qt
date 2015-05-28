@@ -23,43 +23,21 @@ MainWindow::MainWindow(QWidget *parent) :
     grid[rand()%4][rand()%4]=2;
     ifMove=false;
     ui->setupUi(this);
-    ui->label->setText(NULL);
-    ui->label->setAlignment(Qt::AlignCenter);
-    ui->label_2->setText(NULL);
-    ui->label_2->setAlignment(Qt::AlignCenter);
-    ui->label_3->setText(NULL);
-    ui->label_3->setAlignment(Qt::AlignCenter);
-    ui->label_4->setText(NULL);
-    ui->label_4->setAlignment(Qt::AlignCenter);
-    ui->label_5->setText(NULL);
-    ui->label_5->setAlignment(Qt::AlignCenter);
-    ui->label_6->setText(NULL);
-    ui->label_6->setAlignment(Qt::AlignCenter);
-    ui->label_7->setText(NULL);
-    ui->label_7->setAlignment(Qt::AlignCenter);
-    ui->label_8->setText(NULL);
-    ui->label_8->setAlignment(Qt::AlignCenter);
-    ui->label_9->setText(NULL);
-    ui->label_9->setAlignment(Qt::AlignCenter);
-    ui->label_10->setText(NULL);
-    ui->label_10->setAlignment(Qt::AlignCenter);
-    ui->label_11->setText(NULL);
-    ui->label_11->setAlignment(Qt::AlignCenter);
-    ui->label_12->setText(NULL);
-    ui->label_12->setAlignment(Qt::AlignCenter);
-    ui->label_13->setText(NULL);
-    ui->label_13->setAlignment(Qt::AlignCenter);
-    ui->label_14->setText(NULL);
-    ui->label_14->setAlignment(Qt::AlignCenter);
-    ui->label_15->setText(NULL);
-    ui->label_15->setAlignment(Qt::AlignCenter);
-    ui->label_16->setText(NULL);
-    ui->label_16->setAlignment(Qt::AlignCenter);
-    //label->setAlignment(Qt::AlignBottom | Qt::AlignRight);
-    //std::string aa;aa=intstr(grid[0][0]);
+    pix[0].load(":/mats/0.png");
+    pix[2].load(":/mats/2.png");
+    pix[4].load(":/mats/4.png");
+    pix[8].load(":/mats/8.png");
+    pix[16].load(":/mats/16.png");
+    pix[32].load(":/mats/32.png");
+    pix[64].load(":/mats/64.png");
+    pix[128].load(":/mats/128.png");
+    pix[256].load(":/mats/256.png");
+    pix[512].load(":/mats/512.png");
+    pix[1024].load(":/mats/1024.png");
+    pix[2048].load(":/mats/2048.png");
+
     refreshBoard();
 }
-
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -102,6 +80,69 @@ void MainWindow::on_pushButton_2_released()
       pointCnt->changePoint(-3);
       refreshBoard();
     }
+}
+void MainWindow::on_pushButton_3_clicked()
+{
+    pix[0].load(":/mats/0.png");
+    pix[2].load(":/mats/sun.png");
+    pix[4].load(":/mats/01.jpg");
+    pix[8].load(":/mats/02.jpg");
+    pix[16].load(":/mats/1.jpg");
+    pix[32].load(":/mats/1-1.jpg");
+    pix[64].load(":/mats/2.jpg");
+    pix[128].load(":/mats/3.jpg");
+    pix[256].load(":/mats/3-3.jpg");
+    pix[512].load(":/mats/4.jpg");
+    pix[1024].load(":/mats/5.jpg");
+    pix[2048].load(":/mats/6.jpg");
+    pointCnt->backZero();
+
+    for(int i=0;i<4;i++){
+        for(int j=0;j<4;j++){
+            grid[i][j]=0;
+            lastgrid[i][j]=0;
+            regretgrid[i][j]=0;
+        }
+    }
+
+    grid[rand()%4][rand()%4]=2;
+    grid[rand()%4][rand()%4]=2;
+    showLabel();
+    ui->pushButton_2->show();
+    setStyleSheet("background-color:black;");
+    refreshBoard();
+}
+void MainWindow::on_pushButton_4_clicked()
+{
+    pix[0].load(":/mats/0.png");
+    pix[2].load(":/mats/2.png");
+    pix[4].load(":/mats/4.png");
+    pix[8].load(":/mats/8.png");
+    pix[16].load(":/mats/16.png");
+    pix[32].load(":/mats/32.png");
+    pix[64].load(":/mats/64.png");
+    pix[128].load(":/mats/128.png");
+    pix[256].load(":/mats/256.png");
+    pix[512].load(":/mats/512.png");
+    pix[1024].load(":/mats/1024.png");
+    pix[2048].load(":/mats/2048.png");
+
+    pointCnt->backZero();
+
+    for(int i=0;i<4;i++){
+        for(int j=0;j<4;j++){
+            grid[i][j]=0;
+            lastgrid[i][j]=0;
+            regretgrid[i][j]=0;
+        }
+    }
+
+    grid[rand()%4][rand()%4]=2;
+    grid[rand()%4][rand()%4]=2;
+    showLabel();
+    ui->pushButton_2->show();
+    setStyleSheet("background-color:black;");
+    refreshBoard();
 }
 void MainWindow::moveUp(int i,int j)
 {
@@ -308,23 +349,23 @@ int MainWindow::possible()
 
 void MainWindow::refreshBoard()
 {
-    ui->label->setText(grid[0][0]==0?" ":QString::number(grid[0][0]));
-    ui->label_2->setText(grid[0][1]==0?" ":QString::number(grid[0][1]));
-    ui->label_3->setText(grid[0][2]==0?" ":QString::number(grid[0][2]));
-    ui->label_4->setText(grid[0][3]==0?" ":QString::number(grid[0][3]));
-    ui->label_5->setText(grid[1][0]==0?" ":QString::number(grid[1][0]));
-    ui->label_6->setText(grid[1][1]==0?" ":QString::number(grid[1][1]));
-    ui->label_7->setText(grid[1][2]==0?" ":QString::number(grid[1][2]));
-    ui->label_8->setText(grid[1][3]==0?" ":QString::number(grid[1][3]));
-    ui->label_9->setText(grid[2][0]==0?" ":QString::number(grid[2][0]));
-    ui->label_10->setText(grid[2][1]==0?" ":QString::number(grid[2][1]));
-    ui->label_11->setText(grid[2][2]==0?" ":QString::number(grid[2][2]));
-    ui->label_12->setText(grid[2][3]==0?" ":QString::number(grid[2][3]));
-    ui->label_13->setText(grid[3][0]==0?" ":QString::number(grid[3][0]));
-    ui->label_14->setText(grid[3][1]==0?" ":QString::number(grid[3][1]));
-    ui->label_15->setText(grid[3][2]==0?" ":QString::number(grid[3][2]));
-    ui->label_16->setText(grid[3][3]==0?" ":QString::number(grid[3][3]));
     ui->label_17->setText("SCORE:"+QString::number(pointCnt->get()));//points
+    ui->label->setPixmap(pix[(grid[0][0])]);
+    ui->label_2->setPixmap(pix[(grid[0][1])]);
+    ui->label_3->setPixmap(pix[(grid[0][2])]);
+    ui->label_4->setPixmap(pix[(grid[0][3])]);
+    ui->label_5->setPixmap(pix[(grid[1][0])]);
+    ui->label_6->setPixmap(pix[(grid[1][1])]);
+    ui->label_7->setPixmap(pix[(grid[1][2])]);
+    ui->label_8->setPixmap(pix[(grid[1][3])]);
+    ui->label_9->setPixmap(pix[(grid[2][0])]);
+    ui->label_10->setPixmap(pix[(grid[2][1])]);
+    ui->label_11->setPixmap(pix[(grid[2][2])]);
+    ui->label_12->setPixmap(pix[(grid[2][3])]);
+    ui->label_13->setPixmap(pix[(grid[3][0])]);
+    ui->label_14->setPixmap(pix[(grid[3][1])]);
+    ui->label_15->setPixmap(pix[(grid[3][2])]);
+    ui->label_16->setPixmap(pix[(grid[3][3])]);
 
 }
 /*
@@ -379,11 +420,12 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
                   moveLeft(i,j);
 
     }
-    /*TESTING when 2048 occurs
+    //TESTING when 2048 occurs
+    /*
     if(event->key() == Qt::Key_D){
         grid[2][2]=2048;
-    }
-    */
+    }*/
+
 
     for(int i = 0; i<4; ++i)
         for(int j = 0; j<4; ++j)
@@ -474,5 +516,8 @@ void MainWindow::hideLabel()
     ui->label_16->hide();
     ui->label_18->hide();
 }
+
+
+
 
 

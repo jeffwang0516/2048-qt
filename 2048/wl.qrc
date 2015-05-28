@@ -2,5 +2,28 @@
     <qresource prefix="/">
         <file>LOSE.png</file>
         <file>WIN.png</file>
+        <file>mats/0.png</file>
+        <file>mats/01.jpg</file>
+        <file>mats/1.jpg</file>
+        <file>mats/1-1.jpg</file>
+        <file>mats/02.jpg</file>
+        <file>mats/2.jpg</file>
+        <file>mats/2.png</file>
+        <file>mats/3.jpg</file>
+        <file>mats/3-3.jpg</file>
+        <file>mats/4.jpg</file>
+        <file>mats/4.png</file>
+        <file>mats/5.jpg</file>
+        <file>mats/6.jpg</file>
+        <file>mats/8.png</file>
+        <file>mats/16.png</file>
+        <file>mats/32.png</file>
+        <file>mats/64.png</file>
+        <file>mats/128.png</file>
+        <file>mats/256.png</file>
+        <file>mats/512.png</file>
+        <file>mats/1024.png</file>
+        <file>mats/2048.png</file>
+        <file>mats/sun.png</file>
     </qresource>
 </RCC>

@@ -5,6 +5,7 @@
 #include <QMainWindow>
 #include<QLabel>
 #include<string>
+#include<QPixmap>
 #include "points.h"
 
 namespace Ui {
@@ -35,6 +36,8 @@ private slots:
     void on_pushButton_released();
     void on_pushButton_2_pressed();
     void on_pushButton_2_released();
+    void on_pushButton_3_clicked();
+    void on_pushButton_4_clicked();
 
 protected:
 
@@ -46,6 +49,7 @@ private:
     bool ifCombined[4][4];
     bool ifMove;
     Points *pointCnt;
+    QPixmap pix[2049];
     Ui::MainWindow *ui;
 };
 
