@@ -384,7 +384,7 @@ origin:background-color: rgb(41, 255, 209);*/
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
 
-  if(event->key() == Qt::Key_Up||event->key() == Qt::Key_Down||event->key() == Qt::Key_Right||event->key() == Qt::Key_Left||event->key() == Qt::Key_D){
+  if(event->key() == Qt::Key_Up||event->key() == Qt::Key_Down||event->key() == Qt::Key_Right||event->key() == Qt::Key_Left){
       for(int i=0;i<4;i++)
           for(int j=0;j<4;j++){
               ifCombined[i][j]=false;
@@ -431,7 +431,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
     }
     //TESTING when 2048 occurs
-
+/*
     if(event->key() == Qt::Key_D){
         for(int i = 0; i<4; ++i)
             for(int j = 0; j<4; ++j)
@@ -440,7 +440,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         grid[2][3]=512;
         grid[1][3]=512;
     }
-
+*/
 
     for(int i = 0; i<4; ++i)
         for(int j = 0; j<4; ++j)
