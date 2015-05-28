@@ -50,6 +50,7 @@ private:
     bool ifMove;
     Points *pointCnt;
     QPixmap pix[2049];
+    bool ifWin;
     Ui::MainWindow *ui;
 };
 

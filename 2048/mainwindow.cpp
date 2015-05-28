@@ -4,11 +4,12 @@
 #include<time.h>
 #include<QString>
 #include <stdlib.h>
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    //ui->label_19->hide();
+    ifWin=false;
     pointCnt = new Points();
     srand(time(NULL));
     for(int i=0;i<4;i++){
@@ -37,6 +38,8 @@ MainWindow::MainWindow(QWidget *parent) :
     pix[2048].load(":/mats/2048.png");
 
     refreshBoard();
+    ui->label_19->hide();
+    ui->label_20->hide();
 }
 MainWindow::~MainWindow()
 {
@@ -50,6 +53,7 @@ void MainWindow::on_pushButton_pressed()
 void MainWindow::on_pushButton_released()
 {
     pointCnt->backZero();
+    ifWin=false;
     ui->pushButton->setStyleSheet("font: 26pt\"MV Boli\";color: rgb(26, 144, 255)");
     for(int i=0;i<4;i++){
         for(int j=0;j<4;j++){
@@ -61,6 +65,8 @@ void MainWindow::on_pushButton_released()
 
     grid[rand()%4][rand()%4]=2;
     grid[rand()%4][rand()%4]=2;
+    ui->label_19->hide();
+    ui->label_20->hide();
     showLabel();
     ui->pushButton_2->show();
     setStyleSheet("background-color:black;");
@@ -96,7 +102,7 @@ void MainWindow::on_pushButton_3_clicked()
     pix[1024].load(":/mats/5.jpg");
     pix[2048].load(":/mats/6.jpg");
     pointCnt->backZero();
-
+    ifWin=false;
     for(int i=0;i<4;i++){
         for(int j=0;j<4;j++){
             grid[i][j]=0;
@@ -107,6 +113,8 @@ void MainWindow::on_pushButton_3_clicked()
 
     grid[rand()%4][rand()%4]=2;
     grid[rand()%4][rand()%4]=2;
+    ui->label_19->hide();
+    ui->label_20->hide();
     showLabel();
     ui->pushButton_2->show();
     setStyleSheet("background-color:black;");
@@ -128,7 +136,7 @@ void MainWindow::on_pushButton_4_clicked()
     pix[2048].load(":/mats/2048.png");
 
     pointCnt->backZero();
-
+     ifWin=false;
     for(int i=0;i<4;i++){
         for(int j=0;j<4;j++){
             grid[i][j]=0;
@@ -139,6 +147,8 @@ void MainWindow::on_pushButton_4_clicked()
 
     grid[rand()%4][rand()%4]=2;
     grid[rand()%4][rand()%4]=2;
+    ui->label_19->hide();
+    ui->label_20->hide();
     showLabel();
     ui->pushButton_2->show();
     setStyleSheet("background-color:black;");
@@ -374,7 +384,7 @@ origin:background-color: rgb(41, 255, 209);*/
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
 
-  if(event->key() == Qt::Key_Up||event->key() == Qt::Key_Down||event->key() == Qt::Key_Right||event->key() == Qt::Key_Left){
+  if(event->key() == Qt::Key_Up||event->key() == Qt::Key_Down||event->key() == Qt::Key_Right||event->key() == Qt::Key_Left||event->key() == Qt::Key_D){
       for(int i=0;i<4;i++)
           for(int j=0;j<4;j++){
               ifCombined[i][j]=false;
@@ -421,10 +431,15 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
     }
     //TESTING when 2048 occurs
-    /*
+
     if(event->key() == Qt::Key_D){
-        grid[2][2]=2048;
-    }*/
+        for(int i = 0; i<4; ++i)
+            for(int j = 0; j<4; ++j)
+                lastgrid[i][j]=grid[i][j];
+        grid[3][3]=1024;
+        grid[2][3]=512;
+        grid[1][3]=512;
+    }
 
 
     for(int i = 0; i<4; ++i)
@@ -452,30 +467,36 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         }
         refreshBoard();
     }
+
     for(int i=0;i<4;i++){
         for(int j=0;j<4;j++){
             if(grid[i][j]==2048){
-                hideLabel();
-                ui->pushButton_2->hide();
-                setStyleSheet("background-image: url(:/WIN.png);");
-                for(int i=0;i<4;i++){
-                    for(int j=0;j<4;j++){
-                        grid[i][j]=0;
-                    }
-                }
-
-                grid[rand()%4][rand()%4]=2;
-                grid[rand()%4][rand()%4]=2;
+                ifWin=true;
             }
         }
     }
-    if(possible()==2){
-        hideLabel();
+    if(ifWin){
+
         ui->pushButton_2->hide();
-        setStyleSheet("background-image: url(:/LOSE.png);");
+        ui->label_18->hide();
+        ui->label_19->show();
+      // hideLabel();
+       //ui->pushButton_2->hide();
+       //setStyleSheet("background-image: url(:/WIN.png);");
+
+    }
+    if(possible()==2){
+        ui->pushButton_2->hide();
+        ui->label_18->hide();
+        ui->label_20->show();
+        //hideLabel();
+        //ui->pushButton_2->hide();
+        //setStyleSheet("background-image: url(:/LOSE.png);");
     }
   }
 }
+
+
 void MainWindow::showLabel()
 {
     ui->label->show();
